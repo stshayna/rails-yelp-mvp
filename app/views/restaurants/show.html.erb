@@ -2,10 +2,18 @@
 <p>Address: <%= @restaurant.address %></p>
 <p>Category: <%= @restaurant.category.capitalize %></p>
 <p>Tel: <%= @restaurant.phone_number %></p>
-<p><%= link_to 'Back', restaurants_path %> | <%= link_to 'Leave a review', new_restaurant_review_path(@restaurant) %></p>
+<p><%= link_to 'Back', restaurants_path, class: "btn btn-primary" %></p>
+<p>--------------------------------------</p>
 <h3>Reviews:</h3>
 <ul>
   <% @restaurant.reviews.each do |review| %>
   <li>(Rating: <%= review.rating %>) <%= review.content %> </li>
   <% end %>
 </ul>
+<p>--------------------------------------</p>
+<h3>Submit A Review</h3>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :rating, collection: 0..5 %>
+  <%= f.input :content %>
+  <%= f.submit %>
+<% end %>
